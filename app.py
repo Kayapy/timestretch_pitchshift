@@ -1,5 +1,6 @@
 import streamlit as st
 import torchaudio
+import torch
 import io
 import base64
 
@@ -53,9 +54,9 @@ if uploaded_file is not None:
         try:
             waveform_shifted = aplicar_pitch_shift(waveform, sample_rate, pitch_shift)
             # Salvar o áudio processado temporariamente em um buffer de memória
-            output_buffer = io.BytesIO()
-            torchaudio.save(output_buffer, waveform_shifted, sample_rate, format='wav')
-            st.audio(output_buffer.getvalue(), format='audio/wav')
+            output_file = 'output_pitch_shift.wav'
+            torchaudio.save(output_file, waveform_shifted, sample_rate)
+            st.success(f"Áudio processado salvo como {output_file}")
         except Exception as e:
             st.error(f"Erro ao aplicar Pitch Shift: {e}")
 
@@ -64,6 +65,7 @@ if uploaded_file is not None:
         st.audio(uploaded_file, format='audio/wav', start_time=0)
 
     # Botões de controle de reprodução para o áudio processado
-    if 'output_buffer' in locals():
+    if 'output_file' in locals():
         if st.button("Play Processed"):
-            st.audio(output_buffer.getvalue(), format='audio/wav', start_time=0)
+            st.audio(output_file, format='audio/wav', start_time=0)
+
