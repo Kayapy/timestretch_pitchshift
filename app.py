@@ -10,12 +10,12 @@ def carregar_audio(file):
 
 # Função para aplicar pitch shift
 def aplicar_pitch_shift(waveform, sample_rate, pitch_shift):
-    # Ajuste para importar a função necessária corretamente
+    # Ajustar conforme a versão atualizada do torchaudio
     transform = torchaudio.transforms.Resample(sample_rate, sample_rate)
     return transform(waveform)
 
 # Função para obter a codificação base64 de um arquivo binário
-@st.cache
+@st.cache_data(show_spinner=False)
 def get_base64_of_bin_file(bin_file):
     with open(bin_file, 'rb') as f:
         data = f.read()
