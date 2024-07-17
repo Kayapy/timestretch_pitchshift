@@ -10,8 +10,7 @@ def carregar_audio(file):
 
 # Função para aplicar pitch shift
 def aplicar_pitch_shift(waveform, sample_rate, pitch_shift):
-    # Ajustar conforme a versão atualizada do torchaudio
-    transform = torchaudio.transforms.Resample(sample_rate, sample_rate)
+    transform = torchaudio.transforms.PitchShift(sample_rate, n_steps=pitch_shift)
     return transform(waveform)
 
 # Função para obter a codificação base64 de um arquivo binário
@@ -68,4 +67,3 @@ if uploaded_file is not None:
     if 'output_buffer' in locals():
         if st.button("Play Processed"):
             st.audio(output_buffer.getvalue(), format='audio/wav', start_time=0)
-
