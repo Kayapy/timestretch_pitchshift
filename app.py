@@ -41,7 +41,7 @@ def set_jpeg_as_page_bg(jpeg_file):
 
 
 # Definir a imagem de fundo (substitua 'background.jpg' pelo caminho do seu arquivo JPEG)
-set_jpeg_as_page_bg('C:/Users/kayap/PycharmProjects/Fretnut App/Fretnut.venv/backgroundapp2.jpg')
+set_jpeg_as_page_bg('/workspaces/timestretch_pitchshift/backgroundapp.jpg')
 
 # Conteúdo do aplicativo Streamlit
 st.title("Time Stretch + Pitch Shift")
