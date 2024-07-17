@@ -2,6 +2,7 @@ import streamlit as st
 import torchaudio
 import torch
 import base64
+import numpy as np  # Importando numpy
 
 # Carregar o arquivo de áudio
 def carregar_audio(file):
@@ -56,7 +57,7 @@ if uploaded_file is not None:
             waveform_shifted = aplicar_pitch_shift(waveform, sample_rate, pitch_shift)
             # Salvar o áudio processado temporariamente em um buffer de memória
             output_file = 'output_pitch_shifted.wav'
-            torchaudio.save(output_file, waveform_shifted, sample_rate, backend="soundfile")
+            torchaudio.save(output_file, waveform_shifted.detach(), sample_rate, backend="soundfile")
             st.success(f"Áudio processado salvo como {output_file}")
             st.audio(output_file, format='audio/wav')
         except Exception as e:
