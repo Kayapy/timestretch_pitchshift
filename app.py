@@ -1,17 +1,16 @@
 import streamlit as st
 import torchaudio
 import torch
-import io
 import base64
 
 # Carregar o arquivo de áudio
 def carregar_audio(file):
-    waveform, sample_rate = torchaudio.load(file)
+    waveform, sample_rate = torchaudio.load(file, backend="soundfile")
     return waveform, sample_rate
 
 # Função para aplicar pitch shift
 def aplicar_pitch_shift(waveform, sample_rate, pitch_shift):
-    transform = torchaudio.transforms.PitchShift(sample_rate, n_steps=pitch_shift)
+    transform = torchaudio.transforms.PitchShift(sample_rate=sample_rate, n_steps=pitch_shift)
     return transform(waveform)
 
 # Função para obter a codificação base64 de um arquivo binário
@@ -55,17 +54,12 @@ if uploaded_file is not None:
             waveform_shifted = aplicar_pitch_shift(waveform, sample_rate, pitch_shift)
             # Salvar o áudio processado temporariamente em um buffer de memória
             output_file = 'output_pitch_shifted.wav'
-            torchaudio.save(output_file, waveform_shifted, sample_rate)
+            torchaudio.save(output_file, waveform_shifted, sample_rate, backend="soundfile")
             st.success(f"Áudio processado salvo como {output_file}")
+            st.audio(output_file, format='audio/wav')
         except Exception as e:
             st.error(f"Erro ao aplicar Pitch Shift: {e}")
 
     # Botões de controle de reprodução para o áudio original
     if st.button("Play Original"):
         st.audio(uploaded_file, format='audio/wav', start_time=0)
-
-    # Botões de controle de reprodução para o áudio processado
-    if 'output_file' in locals():
-        if st.button("Play Processed"):
-            st.audio(output_file, format='audio/wav', start_time=0)
-
