@@ -54,7 +54,7 @@ if uploaded_file is not None:
         try:
             waveform_shifted = aplicar_pitch_shift(waveform, sample_rate, pitch_shift)
             # Salvar o áudio processado temporariamente em um buffer de memória
-            output_file = 'output_pitch_shift.wav'
+            output_file = 'output_pitch_shifted.wav'
             torchaudio.save(output_file, waveform_shifted, sample_rate)
             st.success(f"Áudio processado salvo como {output_file}")
         except Exception as e:
