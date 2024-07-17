@@ -41,7 +41,7 @@ def set_jpeg_as_page_bg(jpeg_file):
 
 
 # Definir a imagem de fundo (substitua 'background.jpg' pelo caminho do seu arquivo JPEG)
-set_jpeg_as_page_bg('/workspaces/timestretch_pitchshift/backgroundapp.jpg')
+set_jpeg_as_page_bg('https://github.com/Kayapy/timestretch_pitchshift/blob/main/backgroundapp.jpg')
 
 # Conteúdo do aplicativo Streamlit
 st.title("Time Stretch + Pitch Shift")
