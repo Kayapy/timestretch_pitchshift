@@ -11,7 +11,9 @@ def carregar_audio(file):
 # Função para aplicar pitch shift
 def aplicar_pitch_shift(waveform, sample_rate, pitch_shift):
     transform = torchaudio.transforms.PitchShift(sample_rate=sample_rate, n_steps=pitch_shift)
-    return transform(waveform)
+    with torch.no_grad():  # Certifique-se de que os gradientes estão desativados
+        waveform_shifted = transform(waveform)
+    return waveform_shifted
 
 # Função para obter a codificação base64 de um arquivo binário
 @st.cache_data(show_spinner=False)
